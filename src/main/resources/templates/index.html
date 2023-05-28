@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,18 @@
     <title>Shopping Rōju</title>
 </head>
 <body>
-    <h1>Hello World, SOCORROOOOOOOOOOOOOOOOOOO</h1>
+    <h1>Esta merda não quer funcionarrrrrrrrrrrrrrr!!!!!!!!!!!!!!!!!!!!!!!</h1>
+
+    <h2>Cadastre <a th:href="@{cadastrarUsuario}">aqui</a> </h2>
+    
+    <table>
+        <tr th:each="usuario: ${usuarioList}">
+            <td th:text="${usuario.id}"></td>
+            <td th:text="${usuario.nome}"></td>
+            <td th:text="${usuario.isAdmin}"></td>
+            <td><a th:href="@{'deletar/'+${usuario.id}}">Deletar</a></td>
+            <td><a th:href="@{'editarUsuario/'+${usuario.id}}">Editar</a></td>
+        </tr>
+    </table>
 </body>
 </html>

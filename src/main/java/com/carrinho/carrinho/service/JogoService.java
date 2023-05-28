@@ -21,4 +21,8 @@ public class JogoService {
         return repository.findAll();
     }
 
+    public void create(Jogo j){
+        this.repository.save(j);
+    }
+
 }

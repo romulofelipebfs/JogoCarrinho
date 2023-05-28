@@ -1,5 +1,6 @@
 package com.carrinho.carrinho.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,18 @@ public class UsuarioService implements UserDetailsService{
 
     public void create(Usuario u){
         this.repository.save(u);
+    }
+
+    public void delete(long id){
+        repository.deleteById(id);
+    }
+
+    public List<Usuario> findAll(){
+        return repository.findAll();
+    }
+
+    public Optional<Usuario> findById(long id){
+        return repository.findById(id);
     }
 
     @Override

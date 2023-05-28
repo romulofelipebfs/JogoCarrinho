@@ -15,27 +15,27 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Jogo {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     long id;
+
     @NotBlank
     String nome;
     @NotBlank
     String classificacao;
     @NotBlank
     String preco;
-    @NotBlank
+@NotBlank
     String desenvolvedores;
     @NotBlank
     String genero;
-    @NotBlank
+   @NotBlank
     String dataDeLancamento;
     @NotBlank
     String plataformas;
-    @NotBlank
+   
     String imageUri;
     Date deleted;
 }
