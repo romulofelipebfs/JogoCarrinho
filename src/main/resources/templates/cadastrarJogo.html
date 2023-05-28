@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Jogo</title>
+</head>
+<body>
+<h1> Página de Cadastro de Jogos</h1>
+<form method="post" >
+
+    Nome: <input type="text" th:field="*{nome}">
+    <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"><br />
+
+    Classificacao: <input type="text" th:field="*{classificacao}">
+    <p th:if="${#fields.hasErrors('classificacao')}" th:errors="*{classificacao}"><br />
+
+    Preco: <input type="text" th:field="*{preco}">
+    <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"><br />
+
+    Desenvolvedores: <input type="text" th:field="*{desenvolvedores}">
+    <p th:if="${#fields.hasErrors('desenvolvedores')}" th:errors="*{desenvolvedores}"><br />
+
+    Genero: <input type="text" th:field="*{genero}">
+    <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"><br />
+
+    DataDeLancamento: <input type="text" th:field="*{dataDeLancamento}">
+    <p th:if="${#fields.hasErrors('dataDeLancamento')}" th:errors="*{dataDeLancamento}"><br />
+
+    Plataformas: <input type="text" th:field="*{plataformas}">
+    <p th:if="${#fields.hasErrors('plataformas')}" th:errors="*{plataformas}"><br />
+
+    ImageUri: <input type="text" th:field="*{imageUri}">
+    <p th:if="${#fields.hasErrors('imageUri')}" th:errors="*{imageUri}"><br />
+
+    Deleted: <input type="text" th:field="*{Deleted}">
+    <p th:if="${#fields.hasErrors('Deleted')}" th:errors="*{Deleted}"><br />
+   
+    <br />
+    <button type="submit">Cadastrar</button>
+
+</form>
+</body>
+</html>

@@ -24,7 +24,7 @@ public class Jogo {
     @NotBlank
     String nome;
     @NotBlank
-    String classificaçao;
+    String classificacao;
     @NotBlank
     String preco;
     @NotBlank
@@ -35,5 +35,7 @@ public class Jogo {
     String dataDeLancamento;
     @NotBlank
     String plataformas;
+    @NotBlank
+    String imageUri;
     Date deleted;
 }
