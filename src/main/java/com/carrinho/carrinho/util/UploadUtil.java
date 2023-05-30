@@ -3,7 +3,6 @@ package com.carrinho.carrinho.util;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class UploadUtil {
@@ -33,6 +32,7 @@ public class UploadUtil {
 
                 System.out.println("Armazenando em: " + serverFile.getAbsolutePath());
                 System.out.println("Você fez o upload do arquivo " + nomeArquivo + "com sucesso!");
+                sucessoUpload = true;
 
             } catch (Exception e) {
              

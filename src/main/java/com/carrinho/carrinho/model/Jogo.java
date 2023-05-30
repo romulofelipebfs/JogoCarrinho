@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-//import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Entity
@@ -27,7 +26,7 @@ public class Jogo {
     String classificacao;
     @NotBlank
     String preco;
-@NotBlank
+    @NotBlank
     String desenvolvedores;
     @NotBlank
     String genero;
@@ -35,7 +34,14 @@ public class Jogo {
     String dataDeLancamento;
     @NotBlank
     String plataformas;
-   
+    
     String imageUri;
     Date deleted;
+
+    /* 
+    public void setDeleted(Date deleted){
+        this.deleted = deleted;
+    }
+    */
+
 }

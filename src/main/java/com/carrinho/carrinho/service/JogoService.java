@@ -1,6 +1,7 @@
 package com.carrinho.carrinho.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,11 @@ public class JogoService {
 
     public JogoService(JogoRepository repository) {
         this.repository = repository;
+    }
+
+
+    public Optional<Jogo> findById(long id){
+        return repository.findById(id);
     }
 
     public List<Jogo> findAll(){

@@ -9,9 +9,9 @@
 <form method="post" th:action="@{/doSalvarUsuario}" th:object="${usuario}">
 
     <!-- Id: <input type="text" th:field="*{id}"><br />-->
-    Nome: <input type="text" th:field="*{nome}"><br />
-    Login: <input type="text" th:field="*{login}"><br />
-    Senha: <input type="password" th:field="*{senha}"> <br />
+    Nome: <input type="text" th:field="*{nome}" required><br />
+    Login: <input type="text" th:field="*{login}" required><br />
+    Senha: <input type="password" th:field="*{senha}" required> <br />
     Admin:
     <input type="radio" th:field="*{isAdmin}" value="true"> Sim
     <input type="radio" th:field="*{isAdmin}" value="false" th:checked="true"> Não

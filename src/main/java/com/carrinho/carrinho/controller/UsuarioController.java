@@ -1,6 +1,6 @@
 package com.carrinho.carrinho.controller;
 
-import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
@@ -19,15 +19,6 @@ public class UsuarioController {
 
     public UsuarioController(UsuarioService service) {
         this.service = service;
-    }
-
-
-    @GetMapping({"/index", "/"})
-    public String getIndex(Model model){
-        List<Usuario> usuario = service.findAll();
-
-        model.addAttribute("usuarioList", usuario);
-        return "index.html";
     }
 
 

@@ -7,17 +7,22 @@
     <title>Shopping Rōju</title>
 </head>
 <body>
-    <h1>Esta merda não quer funcionarrrrrrrrrrrrrrr!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Jogos:</h1>
 
-    <h2>Cadastre <a th:href="@{cadastrarUsuario}">aqui</a> </h2>
+    <!--<h2>Cadastre <a th:href="@{cadastrarUsuario}">aqui</a> </h2> -->
+    
     
     <table>
-        <tr th:each="usuario: ${usuarioList}">
-            <td th:text="${usuario.id}"></td>
-            <td th:text="${usuario.nome}"></td>
-            <td th:text="${usuario.isAdmin}"></td>
-            <td><a th:href="@{'deletar/'+${usuario.id}}">Deletar</a></td>
-            <td><a th:href="@{'editarUsuario/'+${usuario.id}}">Editar</a></td>
+        <tr th:each="jogo: ${jogos}" th:if="${jogo.deleted == null}">
+            <td th:text="${jogo.id}"></td>
+            <td th:text="${jogo.nome}"></td>
+            <td th:text="${jogo.classificacao}"></td>
+            <td>
+                <img th:src="@{${jogo.imageUri}}" alt="Imagem do Jogo" width="200" height="200" />
+            </td>
+
+            <td><a th:href="@{'editarJogo/'+${jogo.id}}">Editar</a></td>
+            <td><a th:href="@{'delete/'+${jogo.id}}">Deletar</a></td>
         </tr>
     </table>
 </body>

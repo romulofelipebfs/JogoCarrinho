@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Jogo</title>
+</head>
+<body>
+<h1> Página de Edição de Jogo</h1>
+
+<form method="post" th:action="@{/doCadastrarJogo}" th:object="${jogo}" enctype="multipart/form-data">
+
+    <input type="hidden" th:field="*{id}"><br />
+    Nome: <input type="text" th:field="*{nome}"><br />
+    classificacao: <input type="text" th:field="*{classificacao}"><br />
+    preco: <input type="text" th:field="*{preco}"> <br />
+    desenvolvedores: <input type="text" th:field="*{desenvolvedores}"> <br />
+    genero: <input type="text" th:field="*{genero}"> <br />
+    dataDeLancamento: <input type="text" th:field="*{dataDeLancamento}"> <br />
+    plataformas: <input type="text" th:field="*{plataformas}"> <br />
+    imageUri: <input type="file" name="file" > <br /><br />
+    <button type="submit">Editar</button>
+</form>
+</body>
+</html>
