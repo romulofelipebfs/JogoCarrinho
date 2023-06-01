@@ -11,6 +11,7 @@
 
     <!--<h2>Cadastre <a th:href="@{cadastrarUsuario}">aqui</a> </h2> -->
     
+    <h2><a th:href="@{'cadastrarJogo'}">Cadastrar Jogo</a></h2>
     
     <table>
         <tr th:each="jogo: ${jogos}" th:if="${jogo.deleted == null}">
@@ -21,9 +22,8 @@
                 <img th:src="@{${jogo.imageUri}}" alt="Imagem do Jogo" width="200" height="200" />
             </td>
 
-            <td><a th:href="@{'adicionarCarrinho/'+${jogo.id}}">Adicionar ao Carrinho</a></td>
-            <td><a th:href="@{'verCarrinho'}">Ver Carrinho</a></td>
-            <td><a th:href="@{'finalizarCompra'}">Finalizar Compra</a></td>
+            <td><a th:href="@{'editarJogo/'+${jogo.id}}">Editar</a></td>
+            <td><a th:href="@{'delete/'+${jogo.id}}">Deletar</a></td>
         </tr>
     </table>
 </body>

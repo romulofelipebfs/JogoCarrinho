@@ -1,5 +1,8 @@
 package com.carrinho.carrinho.controller;
 
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.carrinho.carrinho.model.Jogo;
 import com.carrinho.carrinho.service.JogoService;
 import com.carrinho.carrinho.util.UploadUtil;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -36,18 +43,21 @@ public class JogoController {
     public String getCadastrarJogo(Model model){
         Jogo j = new Jogo();
         model.addAttribute("jogo", j);
+        model.addAttribute("acao", "cadastrar");
+
         return "cadastrarJogo";
     }
 
 
     @GetMapping("/editarJogo/{id}")
-    public String getEditarJogo(@PathVariable(name = "id") long id, Model model){
+    public String getEditarJogo(@PathVariable(name = "id") long id, Model model, Errors errors){
 
         Optional<Jogo> j = service.findById(id);
         if (j.isPresent()){
             model.addAttribute("jogo", j.get());
+            model.addAttribute("acao", "editar");
         }else{
-            return "redirect:/index";
+            return "redirect:/admin";
         }
 
         return "editarJogo";
@@ -83,23 +93,91 @@ public class JogoController {
                     }
                 }
                 service.create(jogo);
-                return "redirect:/index";
+                return "redirect:/admin";
             }catch(Exception e){
-                return "redirect:/index";
+                return "redirect:/admin";
             }
             
         }
     }
 
+    @GetMapping("/adicionarCarrinho/{id}")
+    public String adicionarCarrinho(@PathVariable(name = "id") long id, HttpSession session){
+        Optional<Jogo> j = service.findById(id);
+
+        if(j.isPresent()){
+            Jogo jogo = j.get();
+
+            List<Jogo> carrinho = (List<Jogo>) session.getAttribute("carrinho");
+            
+            if (carrinho == null) {
+                // Se não houver um carrinho na sessão, crie um novo ArrayList de itens
+                carrinho = new ArrayList<>();
+            }
+
+            carrinho.add(jogo);
+            session.setAttribute("carrinho", carrinho);
+            return "redirect:/index";
+
+        }
+        else{
+            return "redirect:/index";
+        }
+
+    }
+
+    @GetMapping("/verCarrinho")
+    public String verCarrinho(Model model, HttpSession session) {
+        List<Jogo> carrinho = (List<Jogo>) session.getAttribute("carrinho");
+    
+        if (carrinho != null && !carrinho.isEmpty()) { 
+            for (Jogo jogo : carrinho) {
+                String caminhoImagem = "images/img-Upload/" + jogo.getImageUri();
+                jogo.setImageUri(caminhoImagem);
+            }         
+            model.addAttribute("carrinho", carrinho);
+           return "carrinho"; // Renderiza a página "carrinho" para exibir os itens do carrinho
+        } else {
+            return "redirect:/index"; // Redireciona para a página inicial com a mensagem informando que não há itens no carrinho
+        }
+    }
+
+    @GetMapping("/finalizarCompra")
+    public String finalizarCompra(HttpSession session) {
+        // Invalidar a sessão
+        session.invalidate();
+
+        // Redirecionar para "/index"
+        return "redirect:/index";
+}
+
     @GetMapping(value = {"/", "/index", "/index.html"})
-    public String getIndex(Model model){
+    public String getIndex(Model model, HttpServletResponse response){
         List<Jogo> jogos = service.findAll();
         for (Jogo jogo : jogos) {
             String caminhoImagem = "images/img-Upload/" + jogo.getImageUri();
             jogo.setImageUri(caminhoImagem);
         }
         model.addAttribute("jogos", jogos);
+        Cookie visitaCookie = new Cookie("visita", LocalDateTime.now().toString());
+        visitaCookie.setMaxAge(24 * 60 * 60); // Definir a validade do cookie para 24 horas (em segundos)
+
+    // Adicionar o cookie à resposta
+        response.addCookie(visitaCookie);
+
         return "index";
+    }
+
+    @GetMapping(value = "/admin")
+    public String getAdmin(Model model){
+        List<Jogo> jogos = service.findAll();
+        for (Jogo jogo : jogos) {
+            String caminhoImagem = "images/img-Upload/" + jogo.getImageUri();
+            jogo.setImageUri(caminhoImagem);
+        }
+        model.addAttribute("jogos", jogos);
+
+        return "admin";
     }
     
 }

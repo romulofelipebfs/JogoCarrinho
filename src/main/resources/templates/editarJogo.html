@@ -11,13 +11,30 @@
 
     <input type="hidden" th:field="*{id}"><br />
     Nome: <input type="text" th:field="*{nome}"><br />
+    <p th:if = "${#fields.hasErrors('nome')}" th:erros = "*{nome}"></p>
+
     classificacao: <input type="text" th:field="*{classificacao}"><br />
+    <p th:if = "${#fields.hasErrors('classificacao')}" th:erros = "*{classificacao}"></p>
+
     preco: <input type="text" th:field="*{preco}"> <br />
+    <p th:if = "${#fields.hasErrors('classificacao')}" th:erros = "*{classificacao}"></p>
+
     desenvolvedores: <input type="text" th:field="*{desenvolvedores}"> <br />
+    <p th:if = "${#fields.hasErrors('preco')}" th:erros = "*{preco}"></p>
+
     genero: <input type="text" th:field="*{genero}"> <br />
+    <p th:if = "${#fields.hasErrors('genero')}" th:erros = "*{genero}"></p>
+
     dataDeLancamento: <input type="text" th:field="*{dataDeLancamento}"> <br />
+    <p th:if = "${#fields.hasErrors('dataDeLancamento')}" th:erros = "*{dataDeLancamento}"></p>
+
     plataformas: <input type="text" th:field="*{plataformas}"> <br />
+    <p th:if = "${#fields.hasErrors('plataformas')}" th:erros = "*{plataformas}"></p>
+
     imageUri: <input type="file" name="file" > <br /><br />
+    <input type="hidden" th:field="*{imageUri}"> <br /><br />
+    <p th:if = "${#fields.hasErrors('imageUri')}" th:erros = "*{imageUri}"></p>
+
     <button type="submit">Editar</button>
 </form>
 </body>

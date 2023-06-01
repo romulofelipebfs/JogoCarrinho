@@ -10,14 +10,29 @@
 
     
     Nome: <input type="text" th:field="*{nome}" required><br />
+    <p th:if = "${#fields.hasErrors('nome')}" th:erros = "*{nome}"></p>
+
     classificacao: <input type="text" th:field="*{classificacao}" required><br />
+    <p th:if = "${#fields.hasErrors('classificacao')}" th:erros = "*{classificacao}"></p>
+
     preco: <input type="text" th:field="*{preco}" required> <br />
+    <p th:if = "${#fields.hasErrors('preco')}" th:erros = "*{preco}"></p>
+
     desenvolvedores: <input type="text" th:field="*{desenvolvedores}" required> <br />
+    <p th:if = "${#fields.hasErrors('desenvolvedores')}" th:erros = "*{desenvolvedores}"></p>
+
     genero: <input type="text" th:field="*{genero}" required> <br />
+    <p th:if = "${#fields.hasErrors('genero')}" th:erros = "*{genero}"></p>
+
     dataDeLancamento: <input type="text" th:field="*{dataDeLancamento}" required> <br />
+    <p th:if = "${#fields.hasErrors('dataDeLancamento')}" th:erros = "*{dataDeLancamento}"></p>
+
     plataformas: <input type="text" th:field="*{plataformas}" required> <br />
+    <p th:if = "${#fields.hasErrors('plataformas')}" th:erros = "*{plataformas}"></p>
+
     imageUri: <input type="file" name="file" required> <br />
-    
+    <p th:if = "${#fields.hasErrors('imageUri')}" th:erros = "*{imageUri}"></p>
+
     <button type="submit">Cadastrar</button>
 </form>
 </body>

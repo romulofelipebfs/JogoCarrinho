@@ -7,23 +7,21 @@
     <title>Shopping Rōju</title>
 </head>
 <body>
-    <h1>Jogos:</h1>
+    <h1>Carrinho:</h1>
 
     <!--<h2>Cadastre <a th:href="@{cadastrarUsuario}">aqui</a> </h2> -->
     
     
     <table>
-        <tr th:each="jogo: ${jogos}" th:if="${jogo.deleted == null}">
+        <tr th:each="jogo: ${carrinho}">
             <td th:text="${jogo.id}"></td>
             <td th:text="${jogo.nome}"></td>
             <td th:text="${jogo.classificacao}"></td>
             <td>
                 <img th:src="@{${jogo.imageUri}}" alt="Imagem do Jogo" width="200" height="200" />
+                
             </td>
 
-            <td><a th:href="@{'adicionarCarrinho/'+${jogo.id}}">Adicionar ao Carrinho</a></td>
-            <td><a th:href="@{'verCarrinho'}">Ver Carrinho</a></td>
-            <td><a th:href="@{'finalizarCompra'}">Finalizar Compra</a></td>
         </tr>
     </table>
 </body>
