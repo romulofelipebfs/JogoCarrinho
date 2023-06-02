@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.carrinho.carrinho.model.Usuario;
 import com.carrinho.carrinho.repository.UsuarioRepository;
@@ -14,10 +15,18 @@ import com.carrinho.carrinho.repository.UsuarioRepository;
 public class UsuarioService implements UserDetailsService{
 
     UsuarioRepository repository;
+    //BCryptPasswordEncoder encoder;
 
-    public UsuarioService(UsuarioRepository repository){
-        this.repository = repository;
+      public UsuarioService(UsuarioRepository repository) {
+        this.repository = repository;  
     }
+/* 
+    public void create1(Usuario u){
+        u.setSenha(encoder.encode(u.getSenha()));
+        this.repository.save(u);
+    }
+  */  
+    
 
     public void create(Usuario u){
         this.repository.save(u);

@@ -8,7 +8,9 @@
 <form th:action="@{/login}" method="post">
   <input type="text" name="username" placeholder="Username">
   <input type="password" name="password" placeholder="Password">
-  <button type="submit">Enviar</button>
+  <label for="isAdmin">Administrador:</label>
+      <input type="checkbox" id="isAdmin" name="isAdmin">
+  <button type="submit">Entrar</button>
 </form>
 </body>
 </html>

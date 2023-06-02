@@ -1,12 +1,11 @@
 package com.carrinho.carrinho.controller;
 
-import java.time.LocalDateTime;
+import java.net.http.HttpRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.carrinho.carrinho.model.Jogo;
 import com.carrinho.carrinho.service.JogoService;
 import com.carrinho.carrinho.util.UploadUtil;
-
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -50,7 +49,7 @@ public class JogoController {
 
 
     @GetMapping("/editarJogo/{id}")
-    public String getEditarJogo(@PathVariable(name = "id") long id, Model model, Errors errors){
+    public String getEditarJogo(@PathVariable(name = "id") long id, Model model){
 
         Optional<Jogo> j = service.findById(id);
         if (j.isPresent()){
@@ -128,7 +127,7 @@ public class JogoController {
 
     @GetMapping("/verCarrinho")
     public String verCarrinho(Model model, HttpSession session) {
-        List<Jogo> carrinho = (List<Jogo>) session.getAttribute("carrinho");
+        ArrayList<Jogo> carrinho = (ArrayList<Jogo>) session.getAttribute("carrinho");
     
         if (carrinho != null && !carrinho.isEmpty()) { 
             for (Jogo jogo : carrinho) {
@@ -152,12 +151,19 @@ public class JogoController {
 }
 
     @GetMapping(value = {"/", "/index", "/index.html"})
-    public String getIndex(Model model, HttpServletResponse response){
+    public String getIndex(Model model, HttpServletResponse response, HttpServletRequest request){
         List<Jogo> jogos = service.findAll();
         for (Jogo jogo : jogos) {
             String caminhoImagem = "images/img-Upload/" + jogo.getImageUri();
             jogo.setImageUri(caminhoImagem);
         }
+        HttpSession session = request.getSession(true);
+        ArrayList<Jogo> listaJogos = (ArrayList<Jogo>)session.getAttribute("carrinho");   
+        int qtdItens = 0;
+        if(listaJogos != null){
+            qtdItens = listaJogos.size();
+        }
+        model.addAttribute("qtdItens", qtdItens);
         model.addAttribute("jogos", jogos);
         Cookie visitaCookie = new Cookie("visita", LocalDateTime.now().toString());
         visitaCookie.setMaxAge(24 * 60 * 60); // Definir a validade do cookie para 24 horas (em segundos)
@@ -165,7 +171,7 @@ public class JogoController {
     // Adicionar o cookie à resposta
         response.addCookie(visitaCookie);
 
-        return "index";
+        return "formatada";
     }
 
     @GetMapping(value = "/admin")
@@ -178,6 +184,18 @@ public class JogoController {
         model.addAttribute("jogos", jogos);
 
         return "admin";
+    }
+
+    @GetMapping("/formatada")
+    public String getPaginaFormatada(Model model){
+        List<Jogo> jogos = service.findAll();
+        for (Jogo jogo : jogos) {
+            String caminhoImagem = "images/img-Upload/" + jogo.getImageUri();
+            jogo.setImageUri(caminhoImagem);
+        }
+        model.addAttribute("jogos", jogos);
+
+        return "formatada";
     }
     
 }
